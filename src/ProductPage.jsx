@@ -11,6 +11,9 @@ export const NavContainer = styled.div`
 export const Navigation = styled.div`
   width: 77%;
   height: 100%;
+  border-bottom: 1px;
+  border-bottom: solid;
+  border-color: rgba(232,231,235,255);
 `;
 
 export function ProductPage() {
