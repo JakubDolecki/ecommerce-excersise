@@ -1,4 +1,17 @@
 import { useState } from "react";
+import styled from "styled-components";
+
+export const NavContainer = styled.div`
+  width: 100%;
+  height: 112px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Navigation = styled.div`
+  width: 77%;
+  height: 100%;
+`;
 
 export function ProductPage() {
   const [count, setCount] = useState(0);
@@ -19,22 +32,26 @@ export function ProductPage() {
   };
 
   const handleAddToCart = () => {
-    console.log(Item)
-  }
+    setCart([...cart, Item]);
+    console.log(cart);
+  };
 
   const Item = {
     name: name,
     count: count,
     price: price * count,
-  }
+  };
 
   return (
     <>
+      <NavContainer>
+        <Navigation></Navigation>
+      </NavContainer>
       <span>{count}</span>
       <button onClick={handleAdd}>+</button>
       <button onClick={handleSubtract}>-</button>
       <button onClick={handleAddToCart}>Add to cart</button>
-      <span></span>
+      <span>{JSON.stringify(cart, null, 2)}</span>
     </>
   );
 }
