@@ -65,9 +65,54 @@ export const ProfilePic = styled.img`
   margin-right: 3px;
 `;
 
+export const MainContainer = styled.div`
+  width: 99vw;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ProductContainer = styled.div`
+  background-color: aliceblue;
+  width: 1020px;
+  height: 570px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const PicturesContainer = styled.div`
+  width: 445px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+export const BigImg = styled.img`
+  height: 445px;
+  border-radius: 20px;
+`;
+
+export const Thumbnails = styled.div`
+  height: 90px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+export const Thumbnail = styled.img`
+  height: 90px;
+  border-radius: 10px;
+`;
+
 export function ProductPage() {
   const [count, setCount] = useState(0);
   const [cart, setCart] = useState([]);
+  const [imgSrc, setImgSrc] = useState("src/assets/image-product-1.jpg");
+
+  const handleClick = (e) => {
+    setImgSrc(e.target.src);
+    console.log(imgSrc);
+  };
 
   const price = 125;
 
@@ -84,7 +129,7 @@ export function ProductPage() {
   };
 
   const handleAddToCart = () => {
-     const existingItemIndex = cart.findIndex(item => item.name === name);
+    const existingItemIndex = cart.findIndex((item) => item.name === name);
 
     if (existingItemIndex !== -1) {
       const newCart = [...cart];
@@ -125,11 +170,36 @@ export function ProductPage() {
           </RightSection>
         </Navigation>
       </NavContainer>
-      <span>{count}</span>
-      <button onClick={handleAdd}>+</button>
-      <button onClick={handleSubtract}>-</button>
-      <button onClick={handleAddToCart}>Add to cart</button>
-      <span>{JSON.stringify(cart, null, 2)}</span>
+      <MainContainer>
+        <ProductContainer>
+          <PicturesContainer>
+            <BigImg src={imgSrc}></BigImg>
+            <Thumbnails>
+              <Thumbnail
+                onClick={handleClick}
+                src="src/assets/image-product-1.jpg"
+              />
+              <Thumbnail
+                onClick={handleClick}
+                src="src/assets/image-product-2.jpg"
+              />
+              <Thumbnail
+                onClick={handleClick}
+                src="src/assets/image-product-3.jpg"
+              />
+              <Thumbnail
+                onClick={handleClick}
+                src="src/assets/image-product-4.jpg"
+              />
+            </Thumbnails>
+          </PicturesContainer>
+          <span>{count}</span>
+          <button onClick={handleAdd}>+</button>
+          <button onClick={handleSubtract}>-</button>
+          <button onClick={handleAddToCart}>Add to cart</button>
+          {/* <span>{JSON.stringify(cart, null, 2)}</span> */}
+        </ProductContainer>
+      </MainContainer>
     </>
   );
 }
