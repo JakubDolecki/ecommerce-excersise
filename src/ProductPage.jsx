@@ -52,17 +52,26 @@ export const Link = styled.span`
   margin-top: 38px;
   font-family: Kumbh Sans;
   color: hsl(219, 9%, 45%);
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Cart = styled.img`
   height: 21px;
   margin-top: 38px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ProfilePic = styled.img`
   height: 45px;
   margin-top: 27px;
   margin-right: 3px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const MainContainer = styled.div`
@@ -74,7 +83,6 @@ export const MainContainer = styled.div`
 `;
 
 export const ProductContainer = styled.div`
-  background-color: aliceblue;
   width: 1020px;
   height: 570px;
   display: flex;
@@ -99,10 +107,53 @@ export const Thumbnails = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 export const Thumbnail = styled.img`
   height: 90px;
   border-radius: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
+
+export const InfoContainer = styled.div`
+  width: 445px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+`;
+
+export const InnerContainer = styled.div`
+  height: 425px;
+  width: 100%;
+`;
+
+export const CountButtons = styled.div`
+  width: 155px;
+  height: 57px;
+  background-color: hsl(223, 64%, 98%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  font-family: Kumbh Sans;
+  font-weight: 700;
+`
+
+export const CountButton = styled.button`
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  width: 50px;
+  font-family: Kumbh Sans;
+  font-weight: 700;
+  font-size: 25px;
+  color: orange;
+  padding-bottom: 7px;
+  &:hover {
+    cursor: pointer;
+  }
+`
 
 export function ProductPage() {
   const [count, setCount] = useState(0);
@@ -193,11 +244,17 @@ export function ProductPage() {
               />
             </Thumbnails>
           </PicturesContainer>
-          <span>{count}</span>
-          <button onClick={handleAdd}>+</button>
-          <button onClick={handleSubtract}>-</button>
-          <button onClick={handleAddToCart}>Add to cart</button>
-          {/* <span>{JSON.stringify(cart, null, 2)}</span> */}
+          <InfoContainer>
+            <InnerContainer>
+              <CountButtons>
+                <CountButton onClick={handleSubtract}>-</CountButton>
+                <span>{count}</span>
+                <CountButton onClick={handleAdd}>+</CountButton>
+              </CountButtons>
+              {/* <span>{JSON.stringify(cart, null, 2)}</span> */}
+              <button onClick={handleAddToCart}>Add to cart</button>
+            </InnerContainer>
+          </InfoContainer>
         </ProductContainer>
       </MainContainer>
     </>
