@@ -60,9 +60,9 @@ export const Cart = styled.img`
 `;
 
 export const ProfilePic = styled.img`
-height: 45px;
-margin-top: 27px;
-margin-right: 3px;
+  height: 45px;
+  margin-top: 27px;
+  margin-right: 3px;
 `;
 
 export function ProductPage() {
@@ -84,15 +84,23 @@ export function ProductPage() {
   };
 
   const handleAddToCart = () => {
-    setCart([...cart, Item]);
-    console.log(cart);
-    setCount(0);
-  };
+     const existingItemIndex = cart.findIndex(item => item.name === name);
 
-  const Item = {
-    name: name,
-    count: count,
-    price: price * count,
+    if (existingItemIndex !== -1) {
+      const newCart = [...cart];
+      newCart[existingItemIndex].count += count;
+      newCart[existingItemIndex].price += price * count;
+      setCart(newCart);
+      setCount(0);
+    } else {
+      const Item = {
+        name: name,
+        count: count,
+        price: price * count,
+      };
+      setCart([...cart, Item]);
+      setCount(0);
+    }
   };
 
   return (
