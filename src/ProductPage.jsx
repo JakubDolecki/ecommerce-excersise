@@ -126,6 +126,11 @@ export const InfoContainer = styled.div`
 export const InnerContainer = styled.div`
   height: 425px;
   width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  font-weight: 700;
+  letter-spacing: 1px;
 `;
 
 export const CountButtons = styled.div`
@@ -138,7 +143,7 @@ export const CountButtons = styled.div`
   border-radius: 10px;
   font-family: Kumbh Sans;
   font-weight: 700;
-`
+`;
 
 export const CountButton = styled.button`
   background-color: transparent;
@@ -148,17 +153,138 @@ export const CountButton = styled.button`
   font-family: Kumbh Sans;
   font-weight: 700;
   font-size: 25px;
-  color: orange;
+  color: #ff7d1b;
   padding-bottom: 7px;
   &:hover {
     cursor: pointer;
   }
-`
+`;
+
+export const AddButton = styled.button`
+  width: 270px;
+  height: 57px;
+  border: none;
+  background-color: #ff7d1b;
+  border-radius: 10px;
+  font-family: Kumbh Sans;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 1px 30px 25px -15px rgba(255, 125, 0, 0.55);
+  margin-left: 15px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ButtonIcon = styled.img`
+  fill: white;
+  margin-right: 12px;
+  height: 15px;
+`;
+
+export const Buttons = styled.div`
+  display: flex;
+`;
+
+export const Title = styled.span`
+  font-family: Kumbh Sans;
+  color: #ff7d1b;
+  font-size: 15px;
+  margin-bottom: 20px;
+`;
+
+export const Subtitle = styled.span`
+  font-family: Kumbh Sans;
+  font-weight: 700;
+  font-size: 45px;
+  line-height: 50px;
+  margin-bottom: 40px;
+`;
+
+export const Paragraph = styled.span`
+  font-family: Kumbh Sans;
+  color: hsl(219, 9%, 45%);
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 25px;
+  margin-bottom: 25px;
+`;
+
+export const PriceSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 175px;
+  height: 60px;
+  margin-bottom: 30px;
+`;
+
+export const Price = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+export const Number = styled.span`
+  font-family: Kumbh Sans;
+  font-size: 25px;
+  font-weight: 700;
+  margin-right: 17px;
+`;
+
+export const Discount = styled.div`
+  width: 50px;
+  height: 25px;
+  font-family: Kumbh Sans;
+  background-color: #fdefe3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff7d1b;
+  border-radius: 5px;
+`;
+
+export const Crossed = styled.span`
+  text-decoration: line-through;
+  font-family: Kumbh Sans;
+  color: hsl(220, 14%, 75%);
+`;
+
+export const CartWindow = styled.div`
+  position: fixed;
+  background-color: white;
+  height: 265px;
+  width: 350px;
+  left: 69.7%;
+  top: 105px;
+  border-radius: 15px;
+  box-shadow: -1px 47px 74px -29px rgba(0, 0, 0, 0.31);
+  -webkit-box-shadow: -1px 47px 74px -29px rgba(0, 0, 0, 0.31);
+  -moz-box-shadow: -1px 47px 74px -29px rgba(0, 0, 0, 0.31);
+  display: flex;
+  flex-direction: column;
+`;
+
+export const CartTxt = styled.span`
+  font-family: Kumbh Sans;
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-bottom: 25px;
+`;
+
+export const Line = styled.div`
+  height: 1px;
+  width: 350px;
+  background-color: hsl(220, 14%, 75%);
+`;
 
 export function ProductPage() {
   const [count, setCount] = useState(0);
   const [cart, setCart] = useState([]);
   const [imgSrc, setImgSrc] = useState("src/assets/image-product-1.jpg");
+  const [showDiv, setShowDiv] = useState(false);
 
   const handleClick = (e) => {
     setImgSrc(e.target.src);
@@ -168,6 +294,8 @@ export function ProductPage() {
   const price = 125;
 
   const name = "sneakers";
+
+  const photo = "src/assets/image-product-1.jpg";
 
   const handleAdd = () => {
     setCount(count + 1);
@@ -179,6 +307,15 @@ export function ProductPage() {
     }
   };
 
+  const handleCart = () => {
+    if (showDiv == false) {
+      setShowDiv(true);
+    } else {
+      setShowDiv(false);
+    }
+    console.log(showDiv);
+  };
+
   const handleAddToCart = () => {
     const existingItemIndex = cart.findIndex((item) => item.name === name);
 
@@ -188,14 +325,17 @@ export function ProductPage() {
       newCart[existingItemIndex].price += price * count;
       setCart(newCart);
       setCount(0);
+      console.log(cart);
     } else {
       const Item = {
         name: name,
         count: count,
         price: price * count,
+        photo: photo,
       };
       setCart([...cart, Item]);
       setCount(0);
+      console.log(cart);
     }
   };
 
@@ -215,12 +355,18 @@ export function ProductPage() {
           </LeftSection>
           <RightSection>
             <Profile>
-              <Cart src="src/assets/icon-cart.svg" />
+              <Cart onClick={handleCart} src="src/assets/icon-cart.svg" />
               <ProfilePic src="src/assets/image-avatar.png" />
             </Profile>
           </RightSection>
         </Navigation>
       </NavContainer>
+      {showDiv && (
+        <CartWindow>
+          <CartTxt>Cart</CartTxt>
+          <Line></Line>
+        </CartWindow>
+      )}
       <MainContainer>
         <ProductContainer>
           <PicturesContainer>
@@ -246,13 +392,31 @@ export function ProductPage() {
           </PicturesContainer>
           <InfoContainer>
             <InnerContainer>
-              <CountButtons>
-                <CountButton onClick={handleSubtract}>-</CountButton>
-                <span>{count}</span>
-                <CountButton onClick={handleAdd}>+</CountButton>
-              </CountButtons>
-              {/* <span>{JSON.stringify(cart, null, 2)}</span> */}
-              <button onClick={handleAddToCart}>Add to cart</button>
+              <Title>SNEAKER COMPANY</Title>
+              <Subtitle>Fall Limited Edition Sneakers</Subtitle>
+              <Paragraph>
+                These low-profile sneakers are your perfect casual wear
+                companion. Featuring a durable rubber outer sole, they'll
+                withstand everything the weather can offer.
+              </Paragraph>
+              <PriceSection>
+                <Price>
+                  <Number>$125.00</Number>
+                  <Discount>50%</Discount>
+                </Price>
+                <Crossed>$250.00</Crossed>
+              </PriceSection>
+              <Buttons>
+                <CountButtons>
+                  <CountButton onClick={handleSubtract}>-</CountButton>
+                  <span>{count}</span>
+                  <CountButton onClick={handleAdd}>+</CountButton>
+                </CountButtons>
+                <AddButton onClick={handleAddToCart}>
+                  <ButtonIcon src="src/assets/cart-white.svg"></ButtonIcon>
+                  Add to cart
+                </AddButton>
+              </Buttons>
             </InnerContainer>
           </InfoContainer>
         </ProductContainer>
