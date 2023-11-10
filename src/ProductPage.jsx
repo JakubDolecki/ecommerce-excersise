@@ -280,6 +280,79 @@ export const Line = styled.div`
   background-color: hsl(220, 14%, 75%);
 `;
 
+export const Product = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+`;
+
+export const InnerProduct = styled.div`
+  width: 315px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ProductImg = styled.img`
+  height: 100%;
+  border-radius: 5px;
+`;
+
+export const ProductTxt = styled.div`
+  height: 100%;
+  width: 213px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const DeleteImg = styled.img`
+  height: 20px;
+`;
+
+export const ProductName = styled.span`
+  font-family: Kumbh Sans;
+  color: hsl(219, 9%, 45%);
+  margin-bottom: 3px;
+  margin-top: 3px;
+`;
+
+export const ProductBottom = styled.div`
+  display: flex;
+`;
+
+export const ProductCount = styled.span`
+  font-family: Kumbh Sans;
+  color: hsl(219, 9%, 45%);
+`;
+
+export const ProductPrice = styled.span`
+  font-family: Kumbh Sans;
+  font-weight: 700;
+  margin-left: 5px;
+`;
+
+export const CheckoutContainer = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const CheckoutButton = styled.button`
+  width: 315px;
+  height: 100%;
+  font-family: Kumbh Sans;
+  border: none;
+  background-color: #ff7d1b;
+  color: white;
+  font-weight: 700;
+  border-radius: 10px;
+  margin-top: 30px;
+`;
+
 export function ProductPage() {
   const [count, setCount] = useState(0);
   const [cart, setCart] = useState([]);
@@ -291,9 +364,9 @@ export function ProductPage() {
     console.log(imgSrc);
   };
 
-  const price = 125;
+  const price = 125.0;
 
-  const name = "sneakers";
+  const name = "Fall Limited Edition Sneakers";
 
   const photo = "src/assets/image-product-1.jpg";
 
@@ -365,6 +438,26 @@ export function ProductPage() {
         <CartWindow>
           <CartTxt>Cart</CartTxt>
           <Line></Line>
+          {cart.map((item) => (
+            <Product>
+              <InnerProduct>
+                <ProductImg src={item.photo}></ProductImg>
+                <ProductTxt>
+                  <ProductName>{item.name}</ProductName>
+                  <ProductBottom>
+                    <ProductCount>
+                      ${price} x {item.count}
+                    </ProductCount>
+                    <ProductPrice>${item.price}</ProductPrice>
+                  </ProductBottom>
+                </ProductTxt>
+                <DeleteImg src="src/assets/icon-delete.svg"></DeleteImg>
+              </InnerProduct>
+            </Product>
+          ))}
+          <CheckoutContainer>
+            <CheckoutButton>Checkout</CheckoutButton>
+          </CheckoutContainer>
         </CartWindow>
       )}
       <MainContainer>
