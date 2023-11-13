@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useEffect } from "react";
 
 export const NavContainer = styled.div`
   width: 100%;
@@ -54,12 +55,17 @@ export const Link = styled.span`
   color: hsl(219, 9%, 45%);
   &:hover {
     cursor: pointer;
+    color: black;
+    border-bottom: solid;
+    border-width: 5px;
+    border-color: #ff7d1b;
+    font-weight: 700;
   }
 `;
 
 export const Cart = styled.img`
   height: 21px;
-  margin-top: 38px;
+  margin-top: 30px;
   &:hover {
     cursor: pointer;
   }
@@ -71,6 +77,10 @@ export const ProfilePic = styled.img`
   margin-right: 3px;
   &:hover {
     cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #ff7d1b;
+    border-radius: 50%;
   }
 `;
 
@@ -113,6 +123,7 @@ export const Thumbnail = styled.img`
   border-radius: 10px;
   &:hover {
     cursor: pointer;
+    opacity: 0.5;
   }
 `;
 
@@ -157,6 +168,7 @@ export const CountButton = styled.button`
   padding-bottom: 7px;
   &:hover {
     cursor: pointer;
+    color: #f7a363;
   }
 `;
 
@@ -174,6 +186,7 @@ export const AddButton = styled.button`
   margin-left: 15px;
   &:hover {
     cursor: pointer;
+    background-color: #f7a363;
   }
 `;
 
@@ -310,6 +323,9 @@ export const ProductTxt = styled.div`
 
 export const DeleteImg = styled.img`
   height: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ProductName = styled.span`
@@ -353,15 +369,61 @@ export const CheckoutButton = styled.button`
   margin-top: 30px;
 `;
 
+export const Notification = styled.div`
+  font-family: Kumbh Sans;
+  background-color: hsl(26, 100%, 55%);
+  height: 10px;
+  width: 15px;
+  color: white;
+  font-weight: 700;
+  font-size: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 75px;
+  position: relative;
+  top: 38px;
+  left: 10px;
+`;
+
+export const Placeholder = styled.div`
+  background-color: transparent;
+  height: 10px;
+  width: 15px;
+  border-radius: 75px;
+  position: relative;
+  top: 38px;
+  left: 10px;
+`;
+
+export const CartIcon = styled.div``;
+
 export function ProductPage() {
   const [count, setCount] = useState(0);
   const [cart, setCart] = useState([]);
   const [imgSrc, setImgSrc] = useState("src/assets/image-product-1.jpg");
   const [showDiv, setShowDiv] = useState(false);
+  const [notification, setNotification] = useState(0);
+  const [showNoti, setShowNoti] = useState(false);
+
+  useEffect(() => {
+    handleNotification();
+    let itemCount = cart.map((obj) => obj.count);
+    let countString = itemCount.join(", ");
+    setNotification(countString);
+  }, [cart]);
 
   const handleClick = (e) => {
     setImgSrc(e.target.src);
     console.log(imgSrc);
+  };
+
+  const handleNotification = () => {
+    if (cart.length === 0) {
+      setShowNoti(false);
+    } else {
+      setShowNoti(true);
+    }
   };
 
   const price = 125.0;
@@ -412,6 +474,10 @@ export function ProductPage() {
     }
   };
 
+  const handleRemove = (name) => {
+    setCart(cart.filter((item) => item.name !== name));
+  };
+
   return (
     <>
       <NavContainer>
@@ -428,7 +494,14 @@ export function ProductPage() {
           </LeftSection>
           <RightSection>
             <Profile>
-              <Cart onClick={handleCart} src="src/assets/icon-cart.svg" />
+              <CartIcon>
+                {showNoti ? (
+                  <Notification>{notification}</Notification>
+                ) : (
+                  <Placeholder></Placeholder>
+                )}
+                <Cart onClick={handleCart} src="src/assets/icon-cart.svg" />
+              </CartIcon>
               <ProfilePic src="src/assets/image-avatar.png" />
             </Profile>
           </RightSection>
@@ -451,7 +524,10 @@ export function ProductPage() {
                     <ProductPrice>${item.price}</ProductPrice>
                   </ProductBottom>
                 </ProductTxt>
-                <DeleteImg src="src/assets/icon-delete.svg"></DeleteImg>
+                <DeleteImg
+                  onClick={() => handleRemove(item.name)}
+                  src="src/assets/icon-delete.svg"
+                ></DeleteImg>
               </InnerProduct>
             </Product>
           ))}
