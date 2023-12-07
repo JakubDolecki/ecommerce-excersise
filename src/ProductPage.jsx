@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useEffect } from "react";
+import css from "styled-components";
 
 export const NavContainer = styled.div`
   width: 100%;
@@ -118,14 +119,17 @@ export const Thumbnails = styled.div`
   justify-content: space-between;
 `;
 
-export const Thumbnail = styled.img`
-  height: 90px;
-  border-radius: 10px;
-  &:hover {
-    cursor: pointer;
-    opacity: 0.5;
-  }
-`;
+// export const Thumbnail = styled.img`
+//   height: 90px;
+//   border-radius: 10px;
+//   border-width: 10px;
+//   border: ${(props) => (props.active ? "10px solid blue" : "none")};
+
+//   &:hover {
+//     cursor: pointer;
+//     opacity: 0.5;
+//   }
+// `;
 
 export const InfoContainer = styled.div`
   width: 445px;
@@ -399,12 +403,39 @@ export const Placeholder = styled.div`
 export const CartIcon = styled.div``;
 
 export function ProductPage() {
+  const img1 = "src/assets/image-product-1.jpg";
+  const img2 = "src/assets/image-product-2.jpg";
+  const img3 = "src/assets/image-product-3.jpg";
+  const img4 = "src/assets/image-product-4.jpg";
+
   const [count, setCount] = useState(0);
   const [cart, setCart] = useState([]);
   const [imgSrc, setImgSrc] = useState("src/assets/image-product-1.jpg");
   const [showDiv, setShowDiv] = useState(false);
   const [notification, setNotification] = useState(0);
   const [showNoti, setShowNoti] = useState(false);
+  const [activeThumbnail, setActiveThumbnail] = useState(img1);
+
+  useEffect(() => {
+    console.log(imgSrc);
+  }, [imgSrc]);
+
+  const activeStyle = {
+    height: "150px",
+    borderRadius: "10px",
+    borderWidth: "10px",
+
+    // &:hover {
+    //   cursor: "pointer",
+    //   opacity: "0.5",
+    // }
+  };
+
+  const InActiveStyle = {
+    height: "90px",
+    borderRadius: "10px",
+    borderWidth: "10px",
+  };
 
   useEffect(() => {
     handleNotification();
@@ -414,10 +445,11 @@ export function ProductPage() {
   }, [cart]);
 
   const handleClick = (e) => {
-    setImgSrc(e.target.src);
-    console.log(imgSrc);
+    const newImgSrc = e.target.src;
+    setImgSrc(newImgSrc);
+    setActiveThumbnail(newImgSrc);
   };
-
+  
   const handleNotification = () => {
     if (cart.length === 0) {
       setShowNoti(false);
@@ -541,21 +573,29 @@ export function ProductPage() {
           <PicturesContainer>
             <BigImg src={imgSrc}></BigImg>
             <Thumbnails>
-              <Thumbnail
+              <img
+                key={img1}
                 onClick={handleClick}
-                src="src/assets/image-product-1.jpg"
+                src={img1}
+                style={activeThumbnail.includes(img1) ? activeStyle : InActiveStyle}
               />
-              <Thumbnail
+              <img
+                key={img2}
                 onClick={handleClick}
-                src="src/assets/image-product-2.jpg"
+                src={img2}
+                style={activeThumbnail.includes(img2) ? activeStyle : InActiveStyle}
               />
-              <Thumbnail
+              <img
+                key={img3}
                 onClick={handleClick}
-                src="src/assets/image-product-3.jpg"
+                src={img3}
+                style={activeThumbnail.includes(img3) ? activeStyle : InActiveStyle}
               />
-              <Thumbnail
+              <img
+                key={img4}
                 onClick={handleClick}
-                src="src/assets/image-product-4.jpg"
+                src={img4}
+                style={activeThumbnail.includes(img4) ? activeStyle : InActiveStyle}
               />
             </Thumbnails>
           </PicturesContainer>
