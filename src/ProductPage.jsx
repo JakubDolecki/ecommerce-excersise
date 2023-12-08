@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useEffect } from "react";
-import css from "styled-components";
+import "./ProductPage.css";
 
 export const NavContainer = styled.div`
   width: 100%;
@@ -110,6 +110,7 @@ export const PicturesContainer = styled.div`
 export const BigImg = styled.img`
   height: 445px;
   border-radius: 20px;
+  cursor: pointer;
 `;
 
 export const Thumbnails = styled.div`
@@ -407,11 +408,12 @@ export function ProductPage() {
 
   const [count, setCount] = useState(0);
   const [cart, setCart] = useState([]);
-  const [imgSrc, setImgSrc] = useState("src/assets/image-product-1.jpg");
+  const [imgSrc, setImgSrc] = useState(img1);
   const [showDiv, setShowDiv] = useState(false);
   const [notification, setNotification] = useState(0);
   const [showNoti, setShowNoti] = useState(false);
   const [activeThumbnail, setActiveThumbnail] = useState(img1);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     console.log(imgSrc);
@@ -421,11 +423,21 @@ export function ProductPage() {
     height: "90px",
     opacity: "0.35",
     borderRadius: "10%",
+    cursor: "pointer",
   };
 
   const InActiveStyle = {
     height: "90px",
     borderRadius: "10%",
+    cursor: "pointer",
+  };
+
+  const hoveredStyle = {
+    opacity: "0.5",
+  };
+
+  const unHoveredStyle = {
+    opacity: "1",
   };
 
   const activeBorder = {
@@ -448,7 +460,10 @@ export function ProductPage() {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: "10%",
+    borderStyle: "solid",
+    borderWidth: "3px",
+    borderColor: "white",
+    borderRadius: "13%",
   };
 
   useEffect(() => {
@@ -457,6 +472,10 @@ export function ProductPage() {
     let countString = itemCount.join(", ");
     setNotification(countString);
   }, [cart]);
+
+  useEffect(() => {
+    console.log(isHovered);
+  }, [isHovered]);
 
   const handleClick = (e) => {
     const newImgSrc = e.target.src;
@@ -470,6 +489,10 @@ export function ProductPage() {
     } else {
       setShowNoti(true);
     }
+  };
+
+  const handleHover = () => {
+    setIsHovered(true);
   };
 
   const price = 125.0;
@@ -593,6 +616,7 @@ export function ProductPage() {
                 }
               >
                 <img
+                  className="thumb"
                   key={img1}
                   onClick={handleClick}
                   src={img1}
@@ -607,6 +631,7 @@ export function ProductPage() {
                 }
               >
                 <img
+                  className="thumb"
                   key={img2}
                   onClick={handleClick}
                   src={img2}
@@ -621,6 +646,7 @@ export function ProductPage() {
                 }
               >
                 <img
+                  className="thumb"
                   key={img3}
                   onClick={handleClick}
                   src={img3}
@@ -635,6 +661,7 @@ export function ProductPage() {
                 }
               >
                 <img
+                  className="thumb"
                   key={img4}
                   onClick={handleClick}
                   src={img4}
