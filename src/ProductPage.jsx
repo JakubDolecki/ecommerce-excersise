@@ -119,18 +119,6 @@ export const Thumbnails = styled.div`
   justify-content: space-between;
 `;
 
-// export const Thumbnail = styled.img`
-//   height: 90px;
-//   border-radius: 10px;
-//   border-width: 10px;
-//   border: ${(props) => (props.active ? "10px solid blue" : "none")};
-
-//   &:hover {
-//     cursor: pointer;
-//     opacity: 0.5;
-//   }
-// `;
-
 export const InfoContainer = styled.div`
   width: 445px;
   height: 100%;
@@ -402,6 +390,15 @@ export const Placeholder = styled.div`
 
 export const CartIcon = styled.div``;
 
+export const Thumbnail = styled.div`
+  height: 95px;
+  width: 95px;
+  background-color: hsl(26, 100%, 55%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export function ProductPage() {
   const img1 = "src/assets/image-product-1.jpg";
   const img2 = "src/assets/image-product-2.jpg";
@@ -421,20 +418,37 @@ export function ProductPage() {
   }, [imgSrc]);
 
   const activeStyle = {
-    height: "150px",
-    borderRadius: "10px",
-    borderWidth: "10px",
-
-    // &:hover {
-    //   cursor: "pointer",
-    //   opacity: "0.5",
-    // }
+    height: "90px",
+    opacity: "0.35",
+    borderRadius: "10%",
   };
 
   const InActiveStyle = {
     height: "90px",
-    borderRadius: "10px",
-    borderWidth: "10px",
+    borderRadius: "10%",
+  };
+
+  const activeBorder = {
+    height: "90px",
+    width: "90px",
+    backgroundColor: "white",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderStyle: "solid",
+    borderWidth: "3px",
+    borderColor: "hsl(26, 100%, 55%)",
+    borderRadius: "13%",
+  };
+
+  const InActiveBorder = {
+    height: "90px",
+    width: "90px",
+    backgroundColor: "white",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "10%",
   };
 
   useEffect(() => {
@@ -449,7 +463,7 @@ export function ProductPage() {
     setImgSrc(newImgSrc);
     setActiveThumbnail(newImgSrc);
   };
-  
+
   const handleNotification = () => {
     if (cart.length === 0) {
       setShowNoti(false);
@@ -573,30 +587,62 @@ export function ProductPage() {
           <PicturesContainer>
             <BigImg src={imgSrc}></BigImg>
             <Thumbnails>
-              <img
-                key={img1}
-                onClick={handleClick}
-                src={img1}
-                style={activeThumbnail.includes(img1) ? activeStyle : InActiveStyle}
-              />
-              <img
-                key={img2}
-                onClick={handleClick}
-                src={img2}
-                style={activeThumbnail.includes(img2) ? activeStyle : InActiveStyle}
-              />
-              <img
-                key={img3}
-                onClick={handleClick}
-                src={img3}
-                style={activeThumbnail.includes(img3) ? activeStyle : InActiveStyle}
-              />
-              <img
-                key={img4}
-                onClick={handleClick}
-                src={img4}
-                style={activeThumbnail.includes(img4) ? activeStyle : InActiveStyle}
-              />
+              <div
+                style={
+                  activeThumbnail.includes(img1) ? activeBorder : InActiveBorder
+                }
+              >
+                <img
+                  key={img1}
+                  onClick={handleClick}
+                  src={img1}
+                  style={
+                    activeThumbnail.includes(img1) ? activeStyle : InActiveStyle
+                  }
+                />
+              </div>
+              <div
+                style={
+                  activeThumbnail.includes(img2) ? activeBorder : InActiveBorder
+                }
+              >
+                <img
+                  key={img2}
+                  onClick={handleClick}
+                  src={img2}
+                  style={
+                    activeThumbnail.includes(img2) ? activeStyle : InActiveStyle
+                  }
+                />
+              </div>
+              <div
+                style={
+                  activeThumbnail.includes(img3) ? activeBorder : InActiveBorder
+                }
+              >
+                <img
+                  key={img3}
+                  onClick={handleClick}
+                  src={img3}
+                  style={
+                    activeThumbnail.includes(img3) ? activeStyle : InActiveStyle
+                  }
+                />
+              </div>
+              <div
+                style={
+                  activeThumbnail.includes(img4) ? activeBorder : InActiveBorder
+                }
+              >
+                <img
+                  key={img4}
+                  onClick={handleClick}
+                  src={img4}
+                  style={
+                    activeThumbnail.includes(img4) ? activeStyle : InActiveStyle
+                  }
+                />
+              </div>
             </Thumbnails>
           </PicturesContainer>
           <InfoContainer>
