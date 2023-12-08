@@ -400,6 +400,15 @@ export const Thumbnail = styled.div`
   justify-content: center;
 `;
 
+export const GalleryContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: black;
+  z-index: 100;
+  opacity: 0.7;
+`;
+
 export function ProductPage() {
   const img1 = "src/assets/image-product-1.jpg";
   const img2 = "src/assets/image-product-2.jpg";
@@ -414,10 +423,7 @@ export function ProductPage() {
   const [showNoti, setShowNoti] = useState(false);
   const [activeThumbnail, setActiveThumbnail] = useState(img1);
   const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    console.log(imgSrc);
-  }, [imgSrc]);
+  const [showGallery, setShowGallery] = useState(false);
 
   const activeStyle = {
     height: "90px",
@@ -430,14 +436,6 @@ export function ProductPage() {
     height: "90px",
     borderRadius: "10%",
     cursor: "pointer",
-  };
-
-  const hoveredStyle = {
-    opacity: "0.5",
-  };
-
-  const unHoveredStyle = {
-    opacity: "1",
   };
 
   const activeBorder = {
@@ -472,10 +470,6 @@ export function ProductPage() {
     let countString = itemCount.join(", ");
     setNotification(countString);
   }, [cart]);
-
-  useEffect(() => {
-    console.log(isHovered);
-  }, [isHovered]);
 
   const handleClick = (e) => {
     const newImgSrc = e.target.src;
@@ -517,7 +511,14 @@ export function ProductPage() {
     } else {
       setShowDiv(false);
     }
-    console.log(showDiv);
+  };
+
+  const handleGallery = () => {
+    if (showDiv == false) {
+      setShowGallery(true);
+    } else {
+      setShowGallery(false);
+    }
   };
 
   const handleAddToCart = () => {
@@ -549,6 +550,7 @@ export function ProductPage() {
 
   return (
     <>
+      {showGallery && <GalleryContainer></GalleryContainer>}
       <NavContainer>
         <Navigation>
           <LeftSection>
@@ -608,7 +610,7 @@ export function ProductPage() {
       <MainContainer>
         <ProductContainer>
           <PicturesContainer>
-            <BigImg src={imgSrc}></BigImg>
+            <BigImg src={imgSrc} onClick={handleGallery}></BigImg>
             <Thumbnails>
               <div
                 style={
