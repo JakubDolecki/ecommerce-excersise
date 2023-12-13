@@ -400,13 +400,51 @@ export const Thumbnail = styled.div`
   justify-content: center;
 `;
 
-export const GalleryContainer = styled.div`
+export const GalleryBg = styled.div`
   height: 100%;
   width: 100%;
   position: absolute;
   background-color: black;
-  z-index: 100;
+  z-index: 10;
   opacity: 0.7;
+`;
+
+export const Gallery = styled.div`
+  position: absolute;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+export const GalleryContainer = styled.div`
+  /* position: relative; */
+`;
+
+export const BigImgGallery = styled.img`
+  height: 560px;
+  margin-bottom: 40px;
+  border-radius: 20px;
+`;
+
+export const PicturesContainerGallery = styled.div`
+  width: 580px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ThumbnailsGallery = styled.div`
+  height: 90px;
+  width: 480px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CloseGallery = styled.img`
+  fill: white;
 `;
 
 export function ProductPage() {
@@ -422,7 +460,6 @@ export function ProductPage() {
   const [notification, setNotification] = useState(0);
   const [showNoti, setShowNoti] = useState(false);
   const [activeThumbnail, setActiveThumbnail] = useState(img1);
-  const [isHovered, setIsHovered] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
 
   const activeStyle = {
@@ -458,7 +495,8 @@ export function ProductPage() {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    borderStyle: "solid",
+    borderStyle: "none",
+    marginTop: "3px",
     borderWidth: "3px",
     borderColor: "white",
     borderRadius: "13%",
@@ -483,10 +521,6 @@ export function ProductPage() {
     } else {
       setShowNoti(true);
     }
-  };
-
-  const handleHover = () => {
-    setIsHovered(true);
   };
 
   const price = 125.0;
@@ -550,7 +584,108 @@ export function ProductPage() {
 
   return (
     <>
-      {showGallery && <GalleryContainer></GalleryContainer>}
+      {showGallery && (
+        <GalleryContainer>
+          <Gallery>
+            <PicturesContainerGallery>
+              <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" className="closesvg">
+                <path
+                  className="close"
+                  d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z"
+                  fill="#ffffff"
+                  fill-rule="evenodd"
+                  onClick={() => {
+                    setShowGallery(false);
+                  }}
+                />
+              </svg>
+              <BigImgGallery
+                src={imgSrc}
+                onClick={handleGallery}
+              ></BigImgGallery>
+              <ThumbnailsGallery>
+                <div
+                  style={
+                    activeThumbnail.includes(img1)
+                      ? activeBorder
+                      : InActiveBorder
+                  }
+                >
+                  <img
+                    className="thumb"
+                    key={img1}
+                    onClick={handleClick}
+                    src={img1}
+                    style={
+                      activeThumbnail.includes(img1)
+                        ? activeStyle
+                        : InActiveStyle
+                    }
+                  />
+                </div>
+                <div
+                  style={
+                    activeThumbnail.includes(img2)
+                      ? activeBorder
+                      : InActiveBorder
+                  }
+                >
+                  <img
+                    className="thumb"
+                    key={img2}
+                    onClick={handleClick}
+                    src={img2}
+                    style={
+                      activeThumbnail.includes(img2)
+                        ? activeStyle
+                        : InActiveStyle
+                    }
+                  />
+                </div>
+                <div
+                  style={
+                    activeThumbnail.includes(img3)
+                      ? activeBorder
+                      : InActiveBorder
+                  }
+                >
+                  <img
+                    className="thumb"
+                    key={img3}
+                    onClick={handleClick}
+                    src={img3}
+                    style={
+                      activeThumbnail.includes(img3)
+                        ? activeStyle
+                        : InActiveStyle
+                    }
+                  />
+                </div>
+                <div
+                  style={
+                    activeThumbnail.includes(img4)
+                      ? activeBorder
+                      : InActiveBorder
+                  }
+                >
+                  <img
+                    className="thumb"
+                    key={img4}
+                    onClick={handleClick}
+                    src={img4}
+                    style={
+                      activeThumbnail.includes(img4)
+                        ? activeStyle
+                        : InActiveStyle
+                    }
+                  />
+                </div>
+              </ThumbnailsGallery>
+            </PicturesContainerGallery>
+          </Gallery>
+          <GalleryBg> </GalleryBg>
+        </GalleryContainer>
+      )}
       <NavContainer>
         <Navigation>
           <LeftSection>
