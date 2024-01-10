@@ -462,6 +462,40 @@ export function ProductPage() {
   const [activeThumbnail, setActiveThumbnail] = useState(img1);
   const [showGallery, setShowGallery] = useState(false);
 
+  const handleNextArrow = () => {
+    setImgSrc((prevLink) => {
+      const number = parseInt(prevLink.match(/\d+(?=.jpg)/)[0], 10);
+      if (number < 4) {
+        return prevLink.replace(/\d+(?=.jpg)/, number + 1);
+      }
+      return prevLink;
+    });
+    setActiveThumbnail((prevLink) => {
+      const number = parseInt(prevLink.match(/\d+/)[0], 10); // extract number from link
+      if (number < 4) {
+        return prevLink.replace(number, number + 1); // create new link with decremented number
+      }
+      return prevLink; // return old link if number is not greater than 1
+    });
+  };
+
+  const handlePreviousArrow = () => {
+    setImgSrc((prevLink) => {
+      const number = parseInt(prevLink.match(/\d+(?=.jpg)/)[0], 10);
+      if (number > 1) {
+        return prevLink.replace(/\d+(?=.jpg)/, number - 1);
+      }
+      return prevLink;
+    });
+    setActiveThumbnail((prevLink) => {
+      const number = parseInt(prevLink.match(/\d+/)[0], 10); // extract number from link
+      if (number > 1) {
+        return prevLink.replace(number, number - 1); // create new link with decremented number
+      }
+      return prevLink; // return old link if number is not greater than 1
+    });
+  };
+
   const activeStyle = {
     height: "90px",
     opacity: "0.35",
@@ -588,21 +622,62 @@ export function ProductPage() {
         <GalleryContainer>
           <Gallery>
             <PicturesContainerGallery>
-              <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" className="closesvg">
-                <path
-                  className="close"
-                  d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z"
-                  fill="#ffffff"
-                  fill-rule="evenodd"
-                  onClick={() => {
-                    setShowGallery(false);
-                  }}
-                />
-              </svg>
-              <BigImgGallery
-                src={imgSrc}
-                onClick={handleGallery}
-              ></BigImgGallery>
+              <div className="svgdiv">
+                <svg
+                  width="40"
+                  height="40"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="closesvg"
+                >
+                  <path
+                    className="close"
+                    d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z"
+                    fill="#ffffff"
+                    fillRule="evenodd"
+                    onClick={() => {
+                      setShowGallery(false);
+                    }}
+                  />
+                </svg>
+              </div>
+              <div className="imgdiv">
+                <div className="previousarrowdiv" onClick={handlePreviousArrow}>
+                  <svg
+                    width="12"
+                    height="18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11 1 3 9l8 8"
+                      strokeWidth="3"
+                      fill="none"
+                      fillRule="evenodd"
+                      className="arrow"
+                      onClick={handlePreviousArrow}
+                    />
+                  </svg>
+                </div>
+                <BigImgGallery
+                  src={imgSrc}
+                  onClick={handleGallery}
+                ></BigImgGallery>
+                <div className="nextarrowdiv" onClick={handleNextArrow}>
+                  <svg
+                    width="13"
+                    height="18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m2 1 8 8-8 8"
+                      strokeWidth="3"
+                      fill="none"
+                      fillRule="evenodd"
+                      className="arrow"
+                      onClick={handleNextArrow}
+                    />
+                  </svg>
+                </div>
+              </div>
               <ThumbnailsGallery>
                 <div
                   style={

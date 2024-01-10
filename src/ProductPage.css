@@ -9,7 +9,59 @@ html, body {
     width: 100%;
   }
 
+  .close {
+    transform: scale(1.5);
+    cursor: pointer;
+  }
 
   .close:hover {
     fill: hsl(26, 100%, 55%);
+  }
+
+  .svgdiv {
+    margin-left: 550px;
+    margin-bottom: 0;
+  }
+
+  .imgdiv {
+    display: flex;
+  }
+
+  .nextarrowdiv {
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    margin-top: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-left: -25px;
+    margin-right: -25px;
+    z-index: 5;
+    cursor: pointer;
+  }
+
+  .previousarrowdiv {
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    margin-top: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-left: -25px;
+    margin-right: -25px;
+    z-index: 5;
+    cursor: pointer;
+  }
+
+  .arrow:hover {
+    stroke: hsl(26, 100%, 55%);
+  }
+
+  .arrow {
+    stroke: black;
+    cursor: pointer;
   }
