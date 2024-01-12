@@ -419,7 +419,6 @@ export const Gallery = styled.div`
   justify-content: center;
 `;
 export const GalleryContainer = styled.div`
-  /* position: relative; */
 `;
 
 export const BigImgGallery = styled.img`
@@ -471,11 +470,11 @@ export function ProductPage() {
       return prevLink;
     });
     setActiveThumbnail((prevLink) => {
-      const number = parseInt(prevLink.match(/\d+/)[0], 10); // extract number from link
+      const number = parseInt(prevLink.match(/\d+/)[0], 10); 
       if (number < 4) {
-        return prevLink.replace(number, number + 1); // create new link with decremented number
+        return prevLink.replace(number, number + 1); 
       }
-      return prevLink; // return old link if number is not greater than 1
+      return prevLink; 
     });
   };
 
@@ -488,11 +487,11 @@ export function ProductPage() {
       return prevLink;
     });
     setActiveThumbnail((prevLink) => {
-      const number = parseInt(prevLink.match(/\d+/)[0], 10); // extract number from link
+      const number = parseInt(prevLink.match(/\d+/)[0], 10); 
       if (number > 1) {
-        return prevLink.replace(number, number - 1); // create new link with decremented number
+        return prevLink.replace(number, number - 1); 
       }
-      return prevLink; // return old link if number is not greater than 1
+      return prevLink; 
     });
   };
 
