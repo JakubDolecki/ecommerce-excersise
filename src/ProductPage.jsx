@@ -418,8 +418,7 @@ export const Gallery = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const GalleryContainer = styled.div`
-`;
+export const GalleryContainer = styled.div``;
 
 export const BigImgGallery = styled.img`
   height: 560px;
@@ -464,34 +463,24 @@ export function ProductPage() {
   const handleNextArrow = () => {
     setImgSrc((prevLink) => {
       const number = parseInt(prevLink.match(/\d+(?=.jpg)/)[0], 10);
+      let newLink = prevLink;
       if (number < 4) {
-        return prevLink.replace(/\d+(?=.jpg)/, number + 1);
+        newLink = prevLink.replace(/\d+(?=.jpg)/, number + 1);
       }
-      return prevLink;
-    });
-    setActiveThumbnail((prevLink) => {
-      const number = parseInt(prevLink.match(/\d+/)[0], 10); 
-      if (number < 4) {
-        return prevLink.replace(number, number + 1); 
-      }
-      return prevLink; 
+      setActiveThumbnail(newLink);
+      return newLink;
     });
   };
 
   const handlePreviousArrow = () => {
     setImgSrc((prevLink) => {
       const number = parseInt(prevLink.match(/\d+(?=.jpg)/)[0], 10);
+      let newLink = prevLink;
       if (number > 1) {
-        return prevLink.replace(/\d+(?=.jpg)/, number - 1);
+        newLink = prevLink.replace(/\d+(?=.jpg)/, number - 1);
       }
-      return prevLink;
-    });
-    setActiveThumbnail((prevLink) => {
-      const number = parseInt(prevLink.match(/\d+/)[0], 10); 
-      if (number > 1) {
-        return prevLink.replace(number, number - 1); 
-      }
-      return prevLink; 
+      setActiveThumbnail(newLink);
+      return newLink;
     });
   };
 
