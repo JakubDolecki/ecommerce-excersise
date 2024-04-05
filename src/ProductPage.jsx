@@ -8,6 +8,9 @@ export const NavContainer = styled.div`
   height: 112px;
   display: flex;
   justify-content: center;
+  @media (max-width: 900px) {
+    
+  }
 `;
 
 export const Navigation = styled.div`
@@ -17,6 +20,10 @@ export const Navigation = styled.div`
   border-bottom: solid;
   border-color: rgba(232, 231, 235, 255);
   display: flex;
+  @media (max-width: 900px) {
+    border-bottom: none;
+    width: 100%;
+  }
 `;
 
 export const Logo = styled.img`
@@ -30,6 +37,9 @@ export const Links = styled.div`
   width: 400px;
   margin-left: 56px;
   display: flex;
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 export const LeftSection = styled.div`
@@ -83,6 +93,9 @@ export const ProfilePic = styled.img`
     border-color: #ff7d1b;
     border-radius: 50%;
   }
+  @media (max-width: 900px) {
+    margin-right: 0px;
+  }
 `;
 
 export const MainContainer = styled.div`
@@ -91,6 +104,9 @@ export const MainContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 900px) {
+   position: relative;
+  }
 `;
 
 export const ProductContainer = styled.div`
@@ -98,6 +114,10 @@ export const ProductContainer = styled.div`
   height: 570px;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 900px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 export const PicturesContainer = styled.div`
@@ -105,12 +125,26 @@ export const PicturesContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (max-width: 900px) {
+   width : 100%;
+   justify-content: center;
+   background-color: aliceblue;
+   flex-direction: row;
+   overflow: hidden;
+   height: 300px;
+   align-items: center;
+  }
 `;
 
 export const BigImg = styled.img`
   height: 445px;
   border-radius: 20px;
   cursor: pointer;
+  @media (max-width: 900px) {
+   width: 100%;
+   height: auto;
+   border-radius: 0px;
+  }
 `;
 
 export const Thumbnails = styled.div`
@@ -118,6 +152,9 @@ export const Thumbnails = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 export const InfoContainer = styled.div`
